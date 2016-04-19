@@ -1,0 +1,67 @@
+NAME
+	metar - Trivial whether report
+
+SYNOPSIS
+	metar get
+	metar print
+	metar set STATION
+	metar list
+	metar closest LATITUDE LONGITUDE [LIST]
+
+DESCRIPTION
+	metar is a simple utility for find whether stations (hence referred to
+	as METAR stations,) get and raw METAR reports. Most METAR stations are
+	airports.
+
+ACTIONS
+	get
+		Gets the most recent weather report from the selected METAR
+		station. The first line in the report will contain the station's
+		name, country, code, and location.
+
+	print
+		Print the code of the selected METAR station, the station
+		from which weather reports are retrieved. This is equivalent
+		to running
+
+		(cat ~/.config/metar || cat /etc/metar) 2> /dev/null | head -n 1
+
+	set STATION
+		Stores the STATION as the METAR station from which weather
+		reports shall be retrieved. STATION shall be the stations's
+		code. This is equivalent to running
+
+		echo STATION > ~/.config/metar
+
+	list
+		Print all METAR stations. This can take a very long time. You
+		are strongly encouraged to store the output to a file.
+
+		Each station is will be printed on a line, containing the its
+		name, country, code, and location. The code is in parenthesis.
+
+	closest LATITUDE LONGITUDE [LIST]
+		Given a LATITUDE and LONGITUDE in decimal format, print the
+		code of the closest METAR station. If you have already created
+		a list of all stations using the action list, specify the
+		filename of that list as the LIST argument.
+
+FILES
+	~/.config/metar
+		Contains a the code for the selected weather station, and
+		nothing else, except an LF at the end. This will never change.
+		Other programs are encouraged to use this file too.
+
+		If the file contains more than one line, only the first line,
+		even if it is empty, is used.
+
+	/etc/metar
+		Fallback file use if ~/.config/metar is missing. Other
+		programs are encouraged to use this file too.
+
+NOTES
+	US Americans, remember, you are one the western hemisphere. Therefore,
+	you should specify a negative longitude when using the action closest.
+
+SEE ALSO
+	xpybar(1), localeme(1)
