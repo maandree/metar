@@ -1,0 +1,97 @@
+#!/bin/sh
+
+usage ()
+{
+    echo "usage: $0 (get | print | set STATION | list [PREFIX] | closest LATITUDE LONGITUDE [LIST])"
+}
+
+get_station ()
+{
+    icao=""
+    if test -f ~/.config/metar; then
+	icao="$(cat ~/.config/metar | head -n 1)"
+    elif test -f /etc/metar; then
+	icao="$(cat /etc/metar | head -n 1)"
+    fi
+    if test -z "$icao"; then
+	echo 'No METAR station has been selected.' >&2
+	exit 1
+    fi
+    echo "$icao"
+}
+
+list_stations ()
+{
+    file="$(mktemp)"
+    if test -z "$file"; then
+	exit 1
+    fi
+    if ! curl -s "http://weather.noaa.gov/pub/data/observations/metar/decoded/" > "$file"; then
+	unlink "$file"
+	exit 1
+    fi
+    list="$(sed -n 's/^.*<a href="\('"$1"'[A-Za-z0-9]*\)\.TXT">.*$/\1/p' "$file")"
+    unlink "$file"
+    for icao in $list; do
+	curl -s "http://weather.noaa.gov/pub/data/observations/metar/decoded/${icao}.TXT" | head -n 1
+    done
+}
+
+get_closest ()
+{
+    best=
+    grep ')' | while read line; do
+	icao="$(echo "$line" | cut -d ')' -f 1 | cut -d '(' -f 2)"
+	location="$(echo "$line" | cut -d ')' -f 2 | cut -d ' ' -f 2,3)"
+	latitude="$(echo "$location" | cut -d ' ' -f 1)"
+	longitude="$(echo "$location" | cut -d ' ' -f 2)"
+	north="$(echo "$latitude" | grep 'S' > /dev/null; echo $?)"
+	east="$(echo "$longitude" | grep 'W' > /dev/null; echo $?)"
+	latitude="$(echo "$latitude" | tr -d NSEW | sed 's/-/ /g')"
+	longitude="$(echo "$longitude" | tr -d NSEW | sed 's/-/ /g')"
+	best="$(python3 - $north "$latitude" $east "$longitude" "$1" "$2" "$icao" $best <<EOF
+import sys, math
+ploc = lambda ps : sum(float(p) / (60 ** i) for i, p in enumerate(ps))
+haversin = lambda a : 0.5 - math.cos(a) / 2
+
+lat = (+1 if sys.argv[1] == '1' else -1) * ploc(sys.argv[2].split(' '))
+lon = (+1 if sys.argv[3] == '1' else -1) * ploc(sys.argv[4].split(' '))
+rlat = float(sys.argv[5])
+rlon = float(sys.argv[6])
+icao = sys.argv[7]
+best = None if len(sys.argv) == 8 else float(sys.argv[9])
+
+ϕ1, λ1 = [c * math.pi / 180 for c in (lat, lon)]
+ϕ2, λ2 = [c * math.pi / 180 for c in (rlat, rlon)]
+
+h = haversin(ϕ2 - ϕ1) + math.cos(ϕ1) * math.cos(ϕ2) * haversin(λ2 - λ1)
+d = 2 * 6367.5 * math.asin(h ** 0.5)
+
+if best is None or d < best:
+    print('%s %f' % (icao, d))
+else:
+    print(sys.argv[8] + ' ' + sys.argv[9])
+EOF
+        )"
+	echo "$best"
+    done | tail -n 1 | cut -d ' ' -f 1
+}
+
+if test $# = 1 && test "$1" =  "get"; then
+    curl -s "http://weather.noaa.gov/pub/data/observations/metar/decoded/$(get_station).TXT" || exit 1
+elif test $# = 1 && test "$1" =  "print"; then
+    get-station
+elif test $# = 2 && test "$1" =  "set"; then
+    echo "$2" > ~/.config/metar
+elif test $# = 1 && test "$1" =  "list"; then
+    list_stations ""
+elif test $# = 2 && test "$1" =  "list"; then
+    list_stations "$(echo "$2" | tr [a-z] [A-Z])"
+elif test $# = 3 && test "$1" =  "closest"; then
+    list_stations "" | get_closest "$2" "$3"
+elif test $# = 4 && test "$1" =  "closest"; then
+    get_closest "$2" "$3" < "$4"
+else
+    usage
+fi
+

@@ -10,47 +10,57 @@ SYNOPSIS
 
 DESCRIPTION
 	metar is a simple utility for find whether stations (hence referred to
-	as METAR stations,) get and raw METAR reports. Most METAR stations are
+	as METAR stations,) and get METAR reports. Most METAR stations are
 	airports.
 
 ACTIONS
 	get
 		Gets the most recent weather report from the selected METAR
 		station. The first line in the report will contain the station's
-		name, country, code, and location.
+		name, country, ICAO station identifier, and location. There are
+		however some station there this information is missing.
 
 	print
-		Print the code of the selected METAR station, the station
-		from which weather reports are retrieved. This is equivalent
-		to running
+		Print the ICAO station identifier of the selected METAR station,
+		the station from which weather reports are retrieved. This is
+		equivalent to running
 
 		(cat ~/.config/metar || cat /etc/metar) 2> /dev/null | head -n 1
 
 	set STATION
 		Stores the STATION as the METAR station from which weather
 		reports shall be retrieved. STATION shall be the stations's
-		code. This is equivalent to running
+		ICAO station identifier. This is equivalent to running
 
 		echo STATION > ~/.config/metar
 
-	list
+	list [PREFIX]
 		Print all METAR stations. This can take a very long time. You
-		are strongly encouraged to store the output to a file.
+		are strongly encouraged to store the output to a file. For a,
+		not as good, list you can look at
+		http://www.aviationweather.gov/static/adds/metars/stations.txt
+
+		To speed up the listing process, you can filter the output
+		by select the PREFIX of the ICAO station identifiers. If you
+		look at the page with the URL above, you will find the prefix
+		for your country. PREFIX may be a regular expression.
 
 		Each station is will be printed on a line, containing the its
-		name, country, code, and location. The code is in parenthesis.
+		name, country, ICAO station identifier, and location. The
+		ICAO station identifier is in parenthesis.
 
 	closest LATITUDE LONGITUDE [LIST]
 		Given a LATITUDE and LONGITUDE in decimal format, print the
-		code of the closest METAR station. If you have already created
-		a list of all stations using the action list, specify the
-		filename of that list as the LIST argument.
+		ICAO station identifier of the closest METAR station. If you
+		have already created a list of all stations using the action
+		list, specify the filename of that list as the LIST argument.
 
 FILES
 	~/.config/metar
-		Contains a the code for the selected weather station, and
-		nothing else, except an LF at the end. This will never change.
-		Other programs are encouraged to use this file too.
+		Contains the ICAO station identifier for the selected weather
+		station, and nothing else, except an LF at the end. This will
+		never change. Other programs are encouraged to use this file
+		too.
 
 		If the file contains more than one line, only the first line,
 		even if it is empty, is used.
