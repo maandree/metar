@@ -18,8 +18,8 @@ list
 .br
 .B metar
 closest
-.I LATITUDE
-.I LONGITUDE
+.RI [ LATITUDE
+.IR LONGITUDE ]
 .RI [ LIST ]
 .SH "DESCRIPTION"
 .B metar
@@ -73,7 +73,7 @@ Each station is will be printed on a line, containing the its
 name, country, ICAO station identifier, and location. The
 ICAO station identifier is in parenthesis.
 .TP
-\fBclosest\fP \fILATITUDE\fP \fILONGITUDE\fP [\fILIST\fP]
+\fBclosest\fP [\fILATITUDE\fP \fILONGITUDE\fP] [\fILIST\fP]
 Given a
 .I LATITUDE
 and
@@ -83,7 +83,12 @@ closest METAR station. If you have already created a list of
 all stations using the action list, specify the filename of
 that list as the
 .I LIST
-argument.
+argument. If
+.I LATITUDE
+and
+.I LONGITUDE
+are omitted, ~/.config/geolocation, or /etc/geolocation,
+is used.
 .SH "FILES"
 .TP
 ~/config/metar
@@ -98,6 +103,25 @@ even if it is empty, is used.
 /etc/metar
 Fallback file use if ~/.config/metar is missing. Other
 programs are encouraged to use this file too.
+.TP
+~/config/geolocation
+Used to get your location in case
+.B metar closest
+is invoked without
+.I LATITUDE
+annd
+.IR LONGITUDE .
+This file contains your geographical location using the Global
+Positioning System in decimal format. This will never change.
+Other programs are encouraged to use this file too.
+
+If the file contains more than one line, only the first line,
+even if it is empty, is used.
+.TP
+/etc/geolocation
+Fallback file use if ~/.config/geolocation is missing. Other
+programs are encouraged to use this file too.
+.TP
 .SH "NOTES"
 US Americans, remember, you are on the Western Hemisphere. Therefore,
 you should specify a negative longitude when using the action closest.

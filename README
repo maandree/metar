@@ -6,7 +6,7 @@ SYNOPSIS
 	metar print
 	metar set STATION
 	metar list [PREFIX]
-	metar closest LATITUDE LONGITUDE [LIST]
+	metar closest [LATITUDE LONGITUDE] [LIST]
 
 DESCRIPTION
 	metar is a simple utility for find whether stations (hence referred to
@@ -49,11 +49,13 @@ ACTIONS
 		name, country, ICAO station identifier, and location. The
 		ICAO station identifier is in parenthesis.
 
-	closest LATITUDE LONGITUDE [LIST]
+	closest [LATITUDE LONGITUDE] [LIST]
 		Given a LATITUDE and LONGITUDE in decimal format, print the
 		ICAO station identifier of the closest METAR station. If you
 		have already created a list of all stations using the action
 		list, specify the filename of that list as the LIST argument.
+		If LATITUDE and LONGITUDE are omitted, ~/.config/geolocation,
+		or /etc/geolocation, is used.
 
 FILES
 	~/.config/metar
@@ -67,6 +69,20 @@ FILES
 
 	/etc/metar
 		Fallback file use if ~/.config/metar is missing. Other
+		programs are encouraged to use this file too.
+
+	~/config/geolocation
+		Used to get your location in case 'metar closest' is invoked
+		without LATITUDE and LONGITUDE. This file contains your
+		geographical location using the Global Positioning System in
+		decimal format. This will never change. Other programs are
+		encouraged to use this file too.
+
+		If the file contains more than one line, only the first line,
+		even if it is empty, is used.
+
+	/etc/geolocation
+		Fallback file use if ~/.config/geolocation is missing. Other
 		programs are encouraged to use this file too.
 
 NOTES
