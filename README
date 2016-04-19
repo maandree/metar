@@ -5,7 +5,7 @@ SYNOPSIS
 	metar get
 	metar print
 	metar set STATION
-	metar list
+	metar list [PREFIX]
 	metar closest LATITUDE LONGITUDE [LIST]
 
 DESCRIPTION

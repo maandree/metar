@@ -1,0 +1,117 @@
+.TH METAR 1 METAR
+.SH "NAME"
+metar - Trivial whether report
+.SH "SYNOPSIS"
+.B metar
+get
+.br
+.B metar
+print
+.br
+.B metar
+set
+.I STATION
+.br
+.B metar
+list
+.RI [ PREFIX ]
+.br
+.B metar
+closest
+.I LATITUDE
+.I LONGITUDE
+.RI [ LIST ]
+.SH "DESCRIPTION"
+.B metar
+is a simple utility for find whether stations (hence referred to
+as METAR stations,) and get METAR reports. Most METAR stations are
+airports.
+.SH "ACTIONS"
+.TP
+.B get
+Gets the most recent weather report from the selected METAR
+station. The first line in the report will contain the station's
+name, country, ICAO station identifier, and location. There are
+however some station there this information is missing.
+.TP
+.B print
+Print the ICAO station identifier of the selected METAR station,
+the station from which weather reports are retrieved. This is
+equivalent to running
+
+.nf
+    (cat ~/.config/metar || cat /etc/metar) 2> /dev/null | head -n 1
+.fi
+.TP
+\fBset\fP \fISTATION\fP
+Stores the
+.I STATION
+as the METAR station from which weather reports shall be retrieved.
+.I STATION
+shall be the stations's ICAO station identifier. This is equivalent
+to running
+
+.nf
+    echo STATION > ~/.config/metar
+.fi
+.TP
+\fBlist\fP [\fIPREFIX\fP]
+Print all METAR stations. This can take a very long time. You
+are strongly encouraged to store the output to a file. For a,
+not as good, list you can look at
+<http://\:www.aviationweather.gov/\:static/\:adds/\:metars/\:stations.txt>.
+
+To speed up the listing process, you can filter the output
+by select the
+.I PREFIX
+of the ICAO station identifiers. If you look at the page with
+the URL above, you will find the prefix for your country.
+.I PREFIX
+may be a regular expression.
+
+Each station is will be printed on a line, containing the its
+name, country, ICAO station identifier, and location. The
+ICAO station identifier is in parenthesis.
+.TP
+\fBclosest\fP \fILATITUDE\fP \fILONGITUDE\fP [\fILIST\fP]
+Given a
+.I LATITUDE
+and
+.I LONGITUDE
+in decimal format, print the ICAO station identifier of the
+closest METAR station. If you have already created a list of
+all stations using the action list, specify the filename of
+that list as the
+.I LIST
+argument.
+.SH "FILES"
+.TP
+~/config/metar
+Contains the ICAO station identifier for the selected weather
+station, and nothing else, except an LF at the end. This will
+never change. Other programs are encouraged to use this file
+too.
+
+If the file contains more than one line, only the first line,
+even if it is empty, is used.
+.TP
+/etc/metar
+Fallback file use if ~/.config/metar is missing. Other
+programs are encouraged to use this file too.
+.SH "NOTES"
+US Americans, remember, you are one the western hemisphere. Therefore,
+you should specify a negative longitude when using the action closest.
+.SH "SEE ALSO"
+.BR xpybar (1),
+.BR localeme (1)
+.SH "LICENSE"
+Copyright \(co 2016  Mattias Andrée
+.br
+License GPLv3+: GNU GPL version 3 or later <http://\:gnu.org/\:licenses/\:gpl.html>.
+.br
+This is free software: you are free to change and redistribute it.
+.br
+There is NO WARRANTY, to the extent permitted by law.
+.SH "BUGS"
+Please report bugs to <https://\:github.com/\:maandree/\:metar/\:issues>
+or to <maandree@member.fsf.org>.
