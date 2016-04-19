@@ -1,6 +1,19 @@
-sh
-sed
-curl
-coreutils
-python3
+RUNTIME DEPENDENCIES:
+
+	sh
+	sed
+	curl
+	coreutils
+	python3
+
+
+BUILD DEPENDENCIES:
+
+	(none)
+
+
+INSTALL DEPENDENCIES:
+
+	make
+	coreutils
 
