@@ -1,0 +1,197 @@
+Afghanistan: '\(EQ\|OA\)'
+Alaska: P
+Albania: LA
+Algeria: DA
+Angola: FN
+Antarctica: NZ
+Argentina: SA
+Armenia: 'U[DG]'
+Australia: '[YA]'
+Austria: LO
+Azerbaijan: '\(AZ\|UB\)'
+Bahamas: 'M[BY]'
+Bahrain: OB
+Bangladesh: VG
+Barbados: TB
+Belarus: UM
+Belgium: EB
+Belize: MZ
+Benin: DB
+Bermuda: TX
+Bhutan: VQ
+Bolivia: SL
+Bosnia-Herzegovina: LQ
+Botswana: FB
+Brazil: 'S[BW]'
+Bulgaria: LB
+Burkina Faso: DF
+Burma: 'V[BY]'
+Burundi: HB
+Cambodia: VD
+Cameroon: FK
+Canada: C
+Cape Verde: GV
+Central African Republic: FE
+Chad: FT
+Chile: SC
+China: Z
+Colombia: '\(SK\|MC\)'
+Comoros: FM
+Congo: FC
+Costa Rica: MR
+Cote D'Ivoire: DI
+Croatia: LD
+Cuba: MU
+Cyprus: LC
+Czech Republic: LK
+Denmark: EK
+Djibouti: 'H[DF]'
+Dominica Island: TD
+Dominican Republic: '\(MD\|TS\)'
+East Timor: WP
+Ecuador: SE
+Egypt: HE
+El Salvador: MS
+Equatorial Guinea: FG
+Estonia: EE
+Ethiopia: HA
+Falkland Islands: '\(SF\|EG\)'
+Fiji: 'N[FGL]'
+Finland: EF
+France: LF
+Gabon: FO
+Gambia: GB
+Georgia: UG
+Germany: 'E[DT]'
+Ghana: DG
+Gibraltar: LX
+Grand Cayman: MW
+Greece: LG
+Greenland: 'B[GIM]'
+Grenada: '\(TG\|MK\)'
+Guatemala: MG
+Guinea-Bissau: 'G[GU]'
+Guyana: 'S[OY]'
+Haiti: '[CM]T'
+Hawaii: P
+Honduras: '\(MH\|TR\)'
+Hong Kong: '\(VH\|HK\)'
+Hungary: LH
+Iceland: BI
+India: 'V[AEIO]'
+Indonesia: 'W[AIR]'
+Iran: OI
+Iraq: '\(EQ|OR\)'
+Ireland: EI
+Israel: LL
+Italy: LI
+Jamaica: MK
+Japan: '\(R[JO]\|TA\)'
+Jordan: OJ
+Kazakhstan: UA
+Kenya: HK
+Korea: RK
+Kuwait: OK
+Kyrgyzstan: UC
+Lao: VL
+Latvia: '\(EV\|UM\)'
+Lebanon: OL
+Lesotho: FX
+Lesser Antilles: '\(MC\|T\)'
+Liberia: GL
+Libyan Arab Jamahi: HL
+Lithuania: EY
+Luxembourg: EL
+Macau: VM
+Macedonia: LW
+Madagascar: FM
+Malawi: FW
+Malaysia: 'W[BM]'
+Maldives: VR
+Mali: GA
+Malta: LM
+Marshall Islands: '\(PK\|ML\|UJ\|EN\)'
+Mauritania: GQ
+Mauritius: 'F[IJ]'
+Mexico: MM
+Micronesia: 'P[GT]'
+Moldova: '\(LU\|UK\)'
+Montserrat: TR
+Morocco: GM
+Mozambique: FQ
+Myanmar: 'V[BY]'
+Namibia: FY
+Nepal: VN
+Netherlands: EH
+New Caledonia: NW
+New Zealand: NZ
+Nicaragua: MN
+Niger: DR
+Nigeria: DN
+Norway: EN
+Oman: OO
+Pakistan: OP
+Panama: MP
+Papua New Guinea: AY
+Paraguay: SG
+Peru: SP
+Philippines: RP
+Poland: EP
+Polynesia: 'N[CILSTW]'
+Portugal: LP
+Principe: FP
+Puerto Rico: TJ
+Qatar: OT
+Reunion: FM
+Romania: LR
+Russian Federation: U
+Rwanda: HR
+Sahara Occidental: GS
+Saint Helena: FH
+Samoa: 'N[CILSTW]'
+Sao Tome: FP
+Saudi Arabia: OE
+Senegal: GO
+Seychelles: FS
+Sierra Leone: GF
+Singapore: WS
+Slovakia: LZ
+Slovenia: LJ
+Solomon Islands: AG
+Somalia: HC
+South Africa: FA
+Spain: '\(LE\|G[CE]\)'
+Sri Lanka: VC
+Sudan: HS
+Suriname: SM
+Swaziland: FD
+Sweden: ES
+Switzerland: LS
+Syria: OS
+Tadjikistan: UT
+Taiwan: RC
+Tanzania: HT
+Thailand: VT
+Togo: DX
+Tonga: 'N[FGL]'
+Trinidad Tobago: TT
+Tunisia: DT
+Turkey: LT
+Turkmenistan: UT
+Tuvalu: 'N[FGL]'
+Uganda: HU
+Ukraine: 'U[KR]'
+United Arab Emirates: OM
+United Kingdom: EG
+United States: '\([PK]\|ML\)'
+Uruguay: SU
+Uzbekistan: UT
+Vanuatu: NV
+Venezuela: '[SM]V'
+Vietnam: 'V[V-Y]'
+Virgin Islands: '\(KS\|T\)'
+Yemen: 'O[YD]'
+Yugoslavia: '\(BK\|L[QY]\)'
+Zaire: FZ
+Zambia: FL
+Zimbabwe: FV

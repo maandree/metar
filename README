@@ -43,7 +43,10 @@ ACTIONS
 		To speed up the listing process, you can filter the output
 		by select the PREFIX of the ICAO station identifiers. If you
 		look at the page with the URL above, you will find the prefix
-		for your country. PREFIX may be a regular expression.
+		for your country. PREFIX may be a regular expression. These
+		regular expressions are listed in
+		<https://github.com/maandree/metar/blob/master/prefixes>.
+		Note however, this list is not guaranteed to be up to date.
 
 		Each station is will be printed on a line, containing the its
 		name, country, ICAO station identifier, and location. The
