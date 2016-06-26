@@ -74,7 +74,7 @@ FILES
 		Fallback file use if ~/.config/metar is missing. Other
 		programs are encouraged to use this file too.
 
-	~/config/geolocation
+	~/.config/geolocation
 		Used to get your location in case 'metar closest' is invoked
 		without LATITUDE and LONGITUDE. This file contains your
 		geographical location using the Global Positioning System in
