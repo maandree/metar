@@ -2,11 +2,11 @@ NAME
 	metar - Trivial weather report
 
 SYNOPSIS
-	metar get
-	metar print
-	metar set STATION
-	metar list [PREFIX]
-	metar closest [LATITUDE LONGITUDE] [LIST]
+	metar 'get'
+	metar 'print'
+	metar 'set' station
+	metar 'list' [prefix]
+	metar 'closest' [latitude longitude] [list]
 
 DESCRIPTION
 	metar is a simple utility for find whether stations (hence referred to
@@ -27,23 +27,23 @@ ACTIONS
 
 		(cat ~/.config/metar || cat /etc/metar) 2> /dev/null | head -n 1
 
-	set STATION
-		Stores the STATION as the METAR station from which weather
-		reports shall be retrieved. STATION shall be the stations's
+	set station
+		Stores the station as the METAR station from which weather
+		reports shall be retrieved. station shall be the stations's
 		ICAO station identifier. This is equivalent to running
 
-		echo STATION > ~/.config/metar
+		printf '%s\n' station > ~/.config/metar
 
-	list [PREFIX]
+	list [prefix]
 		Print all METAR stations. This can take a very long time. You
 		are strongly encouraged to store the output to a file. For a,
 		not as good, list you can look at
 		http://www.aviationweather.gov/static/adds/metars/stations.txt
 
 		To speed up the listing process, you can filter the output
-		by select the PREFIX of the ICAO station identifiers. If you
+		by select the prefix of the ICAO station identifiers. If you
 		look at the page with the URL above, you will find the prefix
-		for your country. PREFIX may be a regular expression. These
+		for your country. prefix may be a regular expression. These
 		regular expressions are listed in
 		<https://github.com/maandree/metar/blob/master/prefixes>.
 		Note however, this list is not guaranteed to be up to date.
@@ -52,12 +52,12 @@ ACTIONS
 		name, country, ICAO station identifier, and location. The
 		ICAO station identifier is in parenthesis.
 
-	closest [LATITUDE LONGITUDE] [LIST]
-		Given a LATITUDE and LONGITUDE in decimal format, print the
+	closest [latitude longitude] [list]
+		Given a latitude and longitude in decimal format, print the
 		ICAO station identifier of the closest METAR station. If you
 		have already created a list of all stations using the action
-		list, specify the filename of that list as the LIST argument.
-		If LATITUDE and LONGITUDE are omitted, ~/.config/geolocation,
+		list, specify the filename of that list as the list argument.
+		If latitude and longitude are omitted, ~/.config/geolocation,
 		or /etc/geolocation, is used.
 
 FILES

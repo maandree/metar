@@ -10,17 +10,17 @@ print
 .br
 .B metar
 set
-.I STATION
+.I station
 .br
 .B metar
 list
-.RI [ PREFIX ]
+.RI [ prefix ]
 .br
 .B metar
 closest
-.RI [ LATITUDE
-.IR LONGITUDE ]
-.RI [ LIST ]
+.RI [ latitude
+.IR longitude ]
+.RI [ list ]
 .SH "DESCRIPTION"
 .B metar
 is a simple utility for find whether stations (hence referred to
@@ -43,19 +43,19 @@ equivalent to running
     (cat ~/.config/metar || cat /etc/metar) 2> /dev/null | head -n 1
 .fi
 .TP
-\fBset\fP \fISTATION\fP
+\fBset\fP \fIstation\fP
 Stores the
-.I STATION
+.I station
 as the METAR station from which weather reports shall be retrieved.
-.I STATION
+.I station
 shall be the stations's ICAO station identifier. This is equivalent
 to running
 
 .nf
-    echo STATION > ~/.config/metar
+    printf '%s\\n' \fIstation\fP > ~/.config/metar
 .fi
 .TP
-\fBlist\fP [\fIPREFIX\fP]
+\fBlist\fP [\fIprefix\fP]
 Print all METAR stations. This can take a very long time. You
 are strongly encouraged to store the output to a file. For a,
 not as good, list you can look at
@@ -63,10 +63,10 @@ not as good, list you can look at
 
 To speed up the listing process, you can filter the output
 by select the
-.I PREFIX
+.I prefix
 of the ICAO station identifiers. If you look at the page with
 the URL above, you will find the prefix for your country.
-.I PREFIX
+.I prefix
 may be a regular expression. These regular expressions are
 listed in
 <https://\:github.com/\:maandree/\:metar/\:blob/\:master/\:prefixes>.
@@ -76,20 +76,20 @@ Each station is will be printed on a line, containing the its
 name, country, ICAO station identifier, and location. The
 ICAO station identifier is in parenthesis.
 .TP
-\fBclosest\fP [\fILATITUDE\fP \fILONGITUDE\fP] [\fILIST\fP]
+\fBclosest\fP [\fIlatitude\fP \fIlongitude\fP] [\fIlist\fP]
 Given a
-.I LATITUDE
+.I latitude
 and
-.I LONGITUDE
+.I longitude
 in decimal format, print the ICAO station identifier of the
 closest METAR station. If you have already created a list of
 all stations using the action list, specify the filename of
 that list as the
-.I LIST
+.I list
 argument. If
-.I LATITUDE
+.I latitude
 and
-.I LONGITUDE
+.I longitude
 are omitted, ~/.config/geolocation, or /etc/geolocation,
 is used.
 .SH "FILES"
@@ -111,9 +111,9 @@ programs are encouraged to use this file too.
 Used to get your location in case
 .B metar closest
 is invoked without
-.I LATITUDE
+.I latitude
 annd
-.IR LONGITUDE .
+.IR longitude .
 This file contains your geographical location using the Global
 Positioning System in decimal format. This will never change.
 Other programs are encouraged to use this file too.
@@ -133,14 +133,3 @@ you should specify a negative longitude when using the action
 .SH "SEE ALSO"
 .BR xpybar (1),
 .BR localeme (1)
-.SH "LICENSE"
-Copyright \(co 2016  Mattias Andrée
-.br
-License GPLv3+: GNU GPL version 3 or later <http://\:gnu.org/\:licenses/\:gpl.html>.
-.br
-This is free software: you are free to change and redistribute it.
-.br
-There is NO WARRANTY, to the extent permitted by law.
-.SH "BUGS"
-Please report bugs to <https://\:github.com/\:maandree/\:metar/\:issues>
-or to <maandree@member.fsf.org>.

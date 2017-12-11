@@ -1,30 +1,26 @@
-PREFIX = /usr
-BIN = /bin
-DATA = /share
-BINDIR = $(PREFIX)$(BIN)
-DATADIR = $(PREFIX)$(DATA)
-MANDIR = $(DATADIR)/man
-LICENSEDIR = $(DATADIR)/licenses
+.POSIX:
 
-PKGNAME = metar
-COMMAND = metar
+PREFIX = /usr/local
+MANPREFIX = $(PREFIX)/share/man
 
 all:
-clean:
+	@:
 
 install:
-	mkdir -p -- "$(DESTDIR)$(BINDIR)"
-	mkdir -p -- "$(DESTDIR)$(MANDIR)/man1"
-	mkdir -p -- "$(DESTDIR)$(LICENSEDIR)/$(PKGNAME)"
-	install -m755 metar "$(DESTDIR)$(BINDIR)/$(COMMAND)"
-	install -m644 COPYING "$(DESTDIR)$(LICENSEDIR)/$(PKGNAME)/COPYING"
-	install -m644 metar.1 "$(DESTDIR)$(MANDIR)/man1/$(COMMAND).1"
+	mkdir -p -- "$(DESTDIR)$(PREFIX)/bin"
+	mkdir -p -- "$(DESTDIR)$(MANPREFIX)/man1"
+	mkdir -p -- "$(DESTDIR)$(PREFIX)/share/licenses/metar"
+	cp -- metar "$(DESTDIR)$(PREFIX)/bin"
+	cp -- metar.1 "$(DESTDIR)$(MANPREFIX)/man1"
+	cp -- LICENSE "$(DESTDIR)$(PREFIX)/share/licenses/metar"
+	chmod -- 755 "$(DESTDIR)$(PREFIX)/bin/metar"
 
 uninstall:
-	-rm -- "$(DESTDIR)$(BINDIR)/$(COMMAND)"
-	-rm -- "$(DESTDIR)$(LICENSEDIR)/$(PKGNAME)/COPYING"
-	-rm -- "$(DESTDIR)$(MANDIR)/man1/$(COMMAND).1"
-	-rmdir -- "$(DESTDIR)$(LICENSEDIR)/$(PKGNAME)"
+	-rm -f -- "$(DESTDIR)$(PREFIX)/bin/metar"
+	-rm -f -- "$(DESTDIR)$(MANPREFIX)/man1/metar.1"
+	-rm -rf -- "$(DESTDIR)$(PREFIX)/share/licenses/metar"
+
+clean:
+	@:
 
 .PHONY: all clean install uninstall
-

@@ -15,7 +15,7 @@ metar_url ()
 
 usage ()
 {
-    echo "usage: $0 (get | print | set STATION | list [PREFIX] | closest [LATITUDE LONGITUDE] [LIST])"
+    echo "usage: $0 ('get' | 'print' | 'set' station | 'list' [prefix] | 'closest' [latitude longitude] [list])"
 }
 
 get_station ()
