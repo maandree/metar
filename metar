@@ -5,7 +5,7 @@ set -e
 
 metar_url ()
 {
-    url="http://tgftp.nws.noaa.gov/data/observations/metar/decoded"
+    url="https://tgftp.nws.noaa.gov/data/observations/metar/decoded"
     if test $# = 1; then
 	echo "${url}/$(echo "$1" | tr '[a-z]' '[A-Z]').TXT"
     else
