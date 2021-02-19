@@ -7,51 +7,51 @@ metar_url ()
 {
     url="https://tgftp.nws.noaa.gov/data/observations/metar/decoded"
     if test $# = 1; then
-	echo "${url}/$(echo "$1" | tr '[a-z]' '[A-Z]').TXT"
+	printf '%s\n' "${url}/$(printf '%s\n' "$1" | tr '[a-z]' '[A-Z]').TXT"
     else
-	echo "${url}/"
+	printf '%s\n' "${url}/"
     fi
 }
 
 usage ()
 {
-    echo "usage: $0 ('get' | 'print' | 'set' station | 'list' [prefix] | 'closest' [latitude longitude] [list])"
+    printf '%s\n' "usage: $0 ('get' | 'print' | 'set' station | 'list' [prefix] | 'closest' [latitude longitude] [list])" >&2
 }
 
 get_station ()
 {
     icao=""
     if test -f ~/.config/metar; then
-	icao="$(cat ~/.config/metar | head -n 1)"
+	icao="$(head -n 1 < ~/.config/metar)"
     elif test -f /etc/metar; then
-	icao="$(cat /etc/metar | head -n 1)"
+	icao="$(head -n 1 < /etc/metar)"
     fi
     if test -z "$icao"; then
-	echo 'No METAR station has been selected.' >&2
+	printf '%s\n' 'No METAR station has been selected.' >&2
 	exit 1
     fi
-    echo "$icao"
+    printf '%s\n' "$icao"
 }
 
 get_location ()
 {
     geo=""
     if test -f ~/.config/geolocation; then
-	geo="$(cat ~/.config/geolocation | head -n 1)"
+	geo="$(head -n 1 < ~/.config/geolocation)"
 	geof=~/.config/geolocation
     elif test -f /etc/geolocation; then
-	geo="$(cat /etc/geolocation | head -n 1)"
+	geo="$(head -n 1 < /etc/geolocation)"
 	geof=/etc/geolocation
     fi
     if test -z "$geo"; then
-	echo 'No location has been specificed or configured.' >&2
+	printf '%s\n' 'No location has been specificed or configured.' >&2
 	exit 1
     fi
     if ! test $(printf '%s\n' $geo | wc -l) = 2; then
-	echo "Invalid geolocation configuration (${geof})." >&2
+	printf '%s\n' "Invalid geolocation configuration (${geof})." >&2
 	exit 1
     fi
-    echo "$geo"
+    printf '%s\n' "$geo"
 }
 
 list_stations ()
@@ -65,7 +65,7 @@ list_stations ()
 	exit 1
     fi
     list="$(sed -n 's/^.*<a href="\('"$1"'[A-Za-z0-9]*\)\.TXT">.*$/\1/p' "$file")"
-    unlink "$file"
+    unlink -- "$file"
     for icao in $list; do
 	curl -s "$(metar_url "${icao}")" | head -n 1
     done
@@ -75,14 +75,14 @@ get_closest ()
 {
     best=
     grep ')' | while read line; do
-	icao="$(echo "$line" | cut -d ')' -f 1 | cut -d '(' -f 2)"
-	location="$(echo "$line" | cut -d ')' -f 2 | cut -d ' ' -f 2,3)"
-	latitude="$(echo "$location" | cut -d ' ' -f 1)"
-	longitude="$(echo "$location" | cut -d ' ' -f 2)"
-	north="$(set +e; echo "$latitude" | grep 'S' > /dev/null; echo $?)"
-	east="$(set +e; echo "$longitude" | grep 'W' > /dev/null; echo $?)"
-	latitude="$(echo "$latitude" | tr -d NSEW | sed 's/-/ /g')"
-	longitude="$(echo "$longitude" | tr -d NSEW | sed 's/-/ /g')"
+	icao="$(printf '%s\n' "$line" | cut -d ')' -f 1 | cut -d '(' -f 2)"
+	location="$(printf '%s\n' "$line" | cut -d ')' -f 2 | cut -d ' ' -f 2,3)"
+	latitude="$(printf '%s\n' "$location" | cut -d ' ' -f 1)"
+	longitude="$(printf '%s\n' "$location" | cut -d ' ' -f 2)"
+	north="$(set +e; printf '%s\n' "$latitude" | grep 'S' > /dev/null; printf '%s\n' $?)"
+	east="$(set +e; printf '%s\n' "$longitude" | grep 'W' > /dev/null; printf '%s\n' $?)"
+	latitude="$(printf '%s\n' "$latitude" | tr -d NSEW | tr - ' ')"
+	longitude="$(printf '%s\n' "$longitude" | tr -d NSEW | tr - ' ')"
 	best="$(python3 - $north "$latitude" $east "$longitude" "$1" "$2" "$icao" $best <<EOF
 import sys, math
 ploc = lambda ps : sum(float(p) / (60 ** i) for i, p in enumerate(ps))
@@ -107,7 +107,7 @@ else:
     print(sys.argv[8] + ' ' + sys.argv[9])
 EOF
         )"
-	echo "$best"
+	printf '%s\n' "$best"
     done | tail -n 1 | cut -d ' ' -f 1
 }
 
@@ -116,11 +116,11 @@ if test $# = 1 && test "$1" =  "get"; then
 elif test $# = 1 && test "$1" =  "print"; then
     get_station
 elif test $# = 2 && test "$1" =  "set"; then
-    echo "$2" | tr '[a-z]' '[A-Z]' > ~/.config/metar
+    printf '%s\n' "$2" | tr '[a-z]' '[A-Z]' > ~/.config/metar
 elif test $# = 1 && test "$1" =  "list"; then
     list_stations ""
 elif test $# = 2 && test "$1" =  "list"; then
-    list_stations "$(echo "$2" | tr '[a-z]' '[A-Z]')"
+    list_stations "$(printf '%s\n' "$2" | tr '[a-z]' '[A-Z]')"
 elif test $# = 1 && test "$1" =  "closest"; then
     location="$(get_location)"
     list_stations "" | get_closest $location
