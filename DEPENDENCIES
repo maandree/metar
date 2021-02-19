@@ -2,6 +2,7 @@ RUNTIME DEPENDENCIES:
 
 	sh
 	sed
+	grep
 	curl
 	coreutils
 	python3
