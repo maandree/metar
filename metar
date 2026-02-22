@@ -44,7 +44,7 @@ get_location ()
 	geof=/etc/geolocation
     fi
     if test -z "$geo"; then
-	printf '%s\n' 'No location has been specificed or configured.' >&2
+	printf '%s\n' 'No location has been specified or configured.' >&2
 	exit 1
     fi
     if ! test $(printf '%s\n' $geo | wc -l) = 2; then
@@ -134,4 +134,3 @@ elif test $# = 4 && test "$1" =  "closest"; then
 else
     usage
 fi
-

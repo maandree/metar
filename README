@@ -9,9 +9,9 @@ SYNOPSIS
 	metar 'closest' [latitude longitude] [list]
 
 DESCRIPTION
-	metar is a simple utility for find whether stations (hence referred to
-	as METAR stations,) and get METAR reports. Most METAR stations are
-	airports.
+	metar is a simple utility for finding weather stations (hence referred
+	to as METAR stations,) and getting METAR reports. Most METAR stations
+	are airports.
 
 ACTIONS
 	get

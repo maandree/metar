@@ -7,14 +7,11 @@ RUNTIME DEPENDENCIES:
 	coreutils
 	python3
 
-
 BUILD DEPENDENCIES:
 
 	(none)
-
 
 INSTALL DEPENDENCIES:
 
 	make
 	coreutils
-

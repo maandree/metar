@@ -1,6 +1,6 @@
 .TH METAR 1 METAR
 .SH "NAME"
-metar - Trivial weather report
+metar \- Trivial weather report
 .SH "SYNOPSIS"
 .B metar
 get
@@ -23,8 +23,8 @@ closest
 .RI [ list ]
 .SH "DESCRIPTION"
 .B metar
-is a simple utility for find whether stations (hence referred to
-as METAR stations,) and get METAR reports. Most METAR stations are
+is a simple utility for finding weather stations (hence referred to
+as METAR stations,) and getting METAR reports. Most METAR stations are
 airports.
 .SH "ACTIONS"
 .TP
@@ -62,7 +62,7 @@ not as good, list you can look at
 <http://\:www.aviationweather.gov/\:static/\:adds/\:metars/\:stations.txt>.
 
 To speed up the listing process, you can filter the output
-by select the
+by selecting the
 .I prefix
 of the ICAO station identifiers. If you look at the page with
 the URL above, you will find the prefix for your country.
@@ -72,9 +72,9 @@ listed in
 <https://\:codeberg.org/\:maandree/\:metar/\:raw/\:branch/\:master/\:prefixes>.
 Note however, this list is not guaranteed to be up to date.
 
-Each station is will be printed on a line, containing the its
-name, country, ICAO station identifier, and location. The
-ICAO station identifier is in parenthesis.
+Each station will be printed on a line, containing its name,
+country, ICAO station identifier, and location. The ICAO station
+identifier is in parentheses.
 .TP
 \fBclosest\fP [\fIlatitude\fP \fIlongitude\fP] [\fIlist\fP]
 Given a
@@ -94,7 +94,7 @@ are omitted, ~/.config/geolocation, or /etc/geolocation,
 is used.
 .SH "FILES"
 .TP
-~/config/metar
+~/.config/metar
 Contains the ICAO station identifier for the selected weather
 station, and nothing else, except an LF at the end. This will
 never change. Other programs are encouraged to use this file
@@ -112,7 +112,7 @@ Used to get your location in case
 .B metar closest
 is invoked without
 .I latitude
-annd
+and
 .IR longitude .
 This file contains your geographical location using the Global
 Positioning System in decimal format. This will never change.
